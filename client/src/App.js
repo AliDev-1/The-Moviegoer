@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <Router>
-      <GlobalStyles/>
+      <GlobalStyles />
       <SidebarDiv
         onMouseEnter={() => {
           setMini(false);
@@ -30,7 +30,7 @@ const App = () => {
           setMini(true);
         }}
       >
-      <Sidebar mini={mini} toggleSidebar={toggleSidebar} />
+        <Sidebar mini={mini} toggleSidebar={toggleSidebar} />
       </SidebarDiv>
       <Main>
         <Header />
@@ -52,7 +52,7 @@ const SidebarDiv = styled.div`
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #1e1c3d;
+  background: #1e1c3d;
   transition: 0.5s;
   overflow-x: hidden;
   padding-top: 60px;
