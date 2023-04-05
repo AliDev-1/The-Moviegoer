@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Homepage from "./components/Homepage";
 import MovieDetails from "./components/MovieDetails";
-import Actors from "./components/Actors";
+import Actor from "./components/Actor";
 import Profile from "./components/Profile";
 import GlobalStyles from "./components/GlobalStyles";
 
@@ -37,7 +37,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/actors/:id" element={<Actors />} />
+          <Route path="/actor/:id" element={<Actor />} />
           <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </Main>
@@ -52,7 +52,7 @@ const SidebarDiv = styled.div`
   z-index: 1;
   top: 0;
   left: 0;
-  background: #1e1c3d;
+  background: #202125;
   transition: 0.5s;
   overflow-x: hidden;
   padding-top: 60px;

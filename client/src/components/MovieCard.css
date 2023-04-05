@@ -1,7 +1,7 @@
 :root {
   --clr-neutral-900: hsl(207, 19%, 9%);
   --clr-neutral-100: hsl(0, 0%, 100%);
-  --clr-acent-400: hsl(207, 90%, 54%);
+  --clr-acent-400: #b59575;
 }
 
 
@@ -9,10 +9,10 @@
   transform: scale(1.05);
 }
 .card-content {
-  --padding: 20px;
+  --padding: 10px;
   padding: var(--padding);
   background: linear-gradient(hsl(0 0% 0% / 0), hsl(20 0% 0% / 0.3), 20%, hsl(0 0% 0% / 1));
-  transform: translateY(80%);
+  transform: translateY(60%);
   transition: transform 0.5s ease;
 }
 
@@ -57,13 +57,30 @@
 
 .card-body {
   margin-top: 10px;
+  overflow: hidden;
+  display: flex;
+  height: 50px;
   color: rgb(255 255 255 /0.85);
-  font-size: 16px;
+  font-size: 14px;
+}
+
+.card-body p .scroll-text {
+  animation: scroll 10s linear infinite;
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
 
 .button {
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: 4px;
+  font-size: 14px;
   cursor: pointer;
   display: inline-block;
   text-decoration: none;

@@ -13,11 +13,15 @@ export const currentGenreSlice = createSlice({
   reducers: {
     selectGenre: (state, action) => {
       state.genreId = action.payload; //The action.payload will give us a genreID number from the sidebar component upon clicking on a genre
-      
+      state.serachQuery = "";
     },
+    
+    searchMovie: (state, action) => {
+      state.searchQuery = action.payload; //The action.payload will give us a search query string from the search bar component upon clicking on a genre
+    }
   },
 });
 
-export const { selectGenre } = currentGenreSlice.actions;
+export const { selectGenre, searchMovie} = currentGenreSlice.actions;
 
 export default currentGenreSlice.reducer;

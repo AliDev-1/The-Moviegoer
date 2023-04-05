@@ -1,0 +1,40 @@
+[
+  {
+    "_id": "nabeel.ali01@hotmail.com",
+    "name": "John Doe",
+    "watchlist": [
+      { "id": 1234, "title": "Movie Title 1", "description": "Movie Description 1", "genre": "Action", "releaseYear": 2021 },
+      { "id": 5678, "title": "Movie Title 2", "description": "Movie Description 2", "genre": "Comedy", "releaseYear": 2020 }
+    ],
+    "favorites": [
+      {
+        "id": 1234,
+        "title": "Movie Title 1",
+        "description": "Movie Description 1",
+        "genre": "Action",
+        "releaseYear": 2021
+      },
+      {
+        "id": 9012,
+        "title": "Movie Title 3",
+        "description": "Movie Description 3",
+        "genre": "Drama",
+        "releaseYear": 2019
+      }
+    ],
+    "reviews": [
+      {
+        "movieId": 1234,
+        "title": "Movie Title 1",
+        "rating": 4,
+        "review": "Great action movie!"
+      },
+      {
+        "movieId": 5678,
+        "title": "Movie Title 2",
+        "rating": 3,
+        "review": "Decent comedy, but not my favorite"
+      }
+    ]
+  }
+]

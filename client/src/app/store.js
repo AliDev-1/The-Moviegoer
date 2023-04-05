@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { tmdbApi } from "../services/TMDB";
 
-//Importing the currentGenre slice of the store
+//Importing the currentGenre slice to fetch different genres of movies the store
 import currentGenreReducer from "../features/currentGenre";
 
 export default configureStore({

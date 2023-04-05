@@ -9,11 +9,12 @@ const MovieCard = ({ movie }) => {
       <Card url={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="card">
         <div className="card-content">
           <h2 className="card-title">{movie.original_title}</h2>
-          <p className="card-body"> {movie.overview}</p>
-          <a href="#" className="button">
-            {" "}
-            Go to movie{" "}
-          </a>
+          <p className="card-body">
+            <span className="scroll-text">{movie.overview}</span>
+          </p>
+          <Link to={`/movie/${movie.id}`} className="button">
+            Go to movie
+          </Link>
         </div>
       </Card>
     </>
@@ -21,17 +22,18 @@ const MovieCard = ({ movie }) => {
 };
 
 const Card = styled.div`
-  margin: 10px;;
+  margin: 10px;
+  height: 180px;
+  width: 330px;
   color: hsl(0, 0%, 100%);
-  background-size: cover;
+  background-size: contain;
   background-image: url(${(props) => props.url});
   padding: 20rem 0 0 0;
   max-width: 500px;
   border-radius: 1rem;
   overflow: hidden;
   transition: transform 0.5s ease;
-  outline: 1px solid red;
-
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   &:hover {
     transform: scale(1.05);
   }
