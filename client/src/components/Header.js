@@ -6,8 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserButton from "./UserButton";
 import SearchBar from "./SearchBar";
-import cinema from "../assets/images/cinema.png";
-
 
 // Header Banner of Site
 const Header = () => {
@@ -47,9 +45,7 @@ const Header = () => {
   return (
     <>
       <Wrapper scrollPosition={scrollPosition}>
-        <StyledLink to="/">
-         
-        </StyledLink>
+        <StyledLink to="/"></StyledLink>
         <Div>
           <LinkContainer>
             <NavLink to="/" style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}>

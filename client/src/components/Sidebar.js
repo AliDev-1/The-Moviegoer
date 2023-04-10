@@ -21,24 +21,7 @@ const Sidebar = ({ mini }) => {
   
   return (
     <>
-      <Container1 id="mySidebar">
-        <SidebarLink active={mini}>
-          <AiOutlineLogin />
-          <IconText active={mini}>Login</IconText>
-        </SidebarLink>
-        <SidebarLink active={mini}>
-          <FaThList />
-          <IconText active={mini}>Watchlist</IconText>
-        </SidebarLink>
-        <SidebarLink active={mini}>
-          <AiOutlineHeart />
-          <IconText active={mini}>Favorites</IconText>
-        </SidebarLink>
-        <SidebarLink active={mini}>
-          <AiOutlineMail />
-          <IconText active={mini}>Contact</IconText>
-        </SidebarLink>
-      </Container1>
+      
       <SidebarLink active={mini}>
         <MdOutlineLocalMovies />
         <SidebarTitle active={mini}>Categories</SidebarTitle>

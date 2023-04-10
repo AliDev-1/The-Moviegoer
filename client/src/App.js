@@ -54,9 +54,10 @@ const SidebarDiv = styled.div`
   left: 0;
   background: #202125;
   transition: 0.5s;
-  overflow-x: hidden;
+  overflow: hidden;
   padding-top: 60px;
   white-space: nowrap;
+  border-right: 2px solid rgb(181, 149, 117);
 
   &:hover {
     width: 250px;

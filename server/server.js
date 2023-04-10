@@ -5,6 +5,8 @@ const express = require("express");
 const morgan = require("morgan");
 const port = 8888;
 
+const { getWatchlist, getUsers, getReviews, addToWatchlist } = require("./handlers");
+
 express()
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
@@ -13,16 +15,26 @@ express()
   .use(morgan("tiny"))
   .use(express.json())
 
-    .get('/', (req, res) => {
-        res.status(200).json({
-            status: 200,
-            message: "Your server is running.",
-        })
-    })
-        
+  .get("/", (req, res) => {
+    res.status(200).json({
+      status: 200,
+      message: "Your server is running.",
+    });
+  })
+
   // Nothing to modify above this line
   // ---------------------------------
   // add new endpoints here 👇
+
+  .get("/users", getUsers) // get of all MongoDB users data
+
+  .get("/watchlist/:userEmail", getWatchlist) // get a user's watchlist
+
+  .get("/reviews/:userEmail", getReviews) // get a user's reviews
+
+  .post("/watchlist/:userEmail", addToWatchlist) // add a movie to a user's watchlist
+
+  .post("/favorites/:userEmail", addToWatchlist) // add a movie to a user's favorites
 
   // add new endpoints here ☝️
   // ---------------------------------
