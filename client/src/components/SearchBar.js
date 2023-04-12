@@ -1,18 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {searchMovie} from "../features/currentGenre"
 import styled from "styled-components";
 import { RiSearchLine } from "react-icons/ri";
 
 const SearchBar = () => {
-    const [query, setQuery] = useState("");
-    const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
           dispatch(searchMovie(query))
+          navigate("/movies")
       }
   };
 

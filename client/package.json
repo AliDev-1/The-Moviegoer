@@ -9,7 +9,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "aos": "^2.3.4",
     "framer-motion": "^10.10.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -20,8 +19,11 @@
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
     "react-stars": "^2.2.5",
+    "react-tsparticles": "^2.9.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.9",
+    "tsparticles": "^2.9.3",
+    "tsparticles-slim": "^2.9.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

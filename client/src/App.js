@@ -1,15 +1,19 @@
 import { React, useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import styled from "styled-components";
 
 // Components
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Homepage from "./components/Homepage";
+import Movies from "./components/Movies";
 import MovieDetails from "./components/MovieDetails";
 import Actor from "./components/Actor";
 import Profile from "./components/Profile";
+import Loading from "./components/Loading";
 import GlobalStyles from "./components/GlobalStyles";
+import ParticleBackground from "./components/ParticleBackground";
+
 
 const App = () => {
   //See if mouse is hovering over sidebar to expand icons
@@ -18,6 +22,8 @@ const App = () => {
   const toggleSidebar = () => {
     setMini(!mini);
   };
+
+
 
   return (
     <Router>
@@ -36,18 +42,21 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/movies" element={<Movies />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
           <Route path="/actor/:id" element={<Actor />} />
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/loading" element={<Loading />} />
         </Routes>
       </Main>
+      <ParticleBackground />
     </Router>
   );
 };
 
 const SidebarDiv = styled.div`
   height: 100%;
-  width: 65px;
+  width: 70px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -57,7 +66,7 @@ const SidebarDiv = styled.div`
   overflow: hidden;
   padding-top: 60px;
   white-space: nowrap;
-  border-right: 2px solid rgb(181, 149, 117);
+  border-right: 2px solid #fec11b;
 
   &:hover {
     width: 250px;

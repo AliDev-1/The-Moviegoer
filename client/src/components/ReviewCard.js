@@ -5,16 +5,20 @@ import moment from "moment";
 
 const ReviewCard = ({ review }) => {
   //Checking if image is a Gravatar or TMDB image
-  const isGravatar = review.author_details.avatar_path && review.author_details.avatar_path.includes("gravatar.com/avatar");
+    const isGravatar = review.author_details.avatar_path && review.author_details.avatar_path.includes("gravatar.com/avatar");
+    let gravatarImage = "";
+    if (isGravatar) {
+      gravatarImage = review.author_details.avatar_path.slice(1, review.author_details.avatar_path.length - 1);
+    }
 
-  console.log(review);
   return (
     <Container>
       <Card>
         <UserDetailsDiv>
-          <Avatar src={isGravatar ? review.author_details.avatar_path : `https://image.tmdb.org/t/p/w500/${review.author_details.avatar_path}`} alt="Avatar" />
+          <Avatar src={isGravatar ? gravatarImage : `https://image.tmdb.org/t/p/w500/${review.author_details.avatar_path}`} alt="Avatar" />
           <div>
-            <h5>{review.author}</h5>
+                      <h5>{review.author}</h5>
+                      
           </div>
         </UserDetailsDiv>
         <StarsDiv>
@@ -39,6 +43,7 @@ const Card = styled.div`
   width: 600px;
   gap: 10px;
   border: 1px solid rgba(181, 149, 117);
+  background-color: #202125;
   border-radius:30px;
   padding: 20px;
 `;

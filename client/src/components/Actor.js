@@ -3,6 +3,8 @@ import { useHiistory, useParams, Link } from 'react-router-dom'
 import moment from "moment";
 import styled from 'styled-components'
 import { useGetActorDetailsQuery, useGetMoviesByActorIdQuery } from '../services/TMDB'
+import {motion} from "framer-motion"
+import Loading from './Loading';
 import MovieCard from "./MovieCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -12,11 +14,11 @@ const Actor = () => {
   const { id } = useParams()
   const page = 1
   const { data, error, isFetching } = useGetActorDetailsQuery(id)
-  if (isFetching) return <div>Loading...</div>
-  console.log(data.images.profiles)
+  
+  if (isFetching) return <Loading />
 
   return (
-    <Container>
+    <Container initial={{ opacity: 0, transition: { duration: 2 } }} animate={{ opacity: 1, transition: { duration: 2 } }} exit={{ opacity: 0, transition: { duration: 2 } }}>
       <SubContainer>
         <ProfileContainer>
           <div>
@@ -64,7 +66,7 @@ const Actor = () => {
   );
 }
 
-const Container = styled.div`
+const Container = styled(motion.div)`
 display: flex;
 flex-direction: column;
 `
@@ -90,10 +92,12 @@ const Profile = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(181, 149, 117);  
+  border: 1px solid #fec11b;
+  background-color: #202125; 
+  border-radius: 30px; 
 `
 const ProfileName = styled.h2`
-border-bottom: 1px solid rgba(181, 149, 117);
+border-bottom: 1px solid #fec11b;
 `
 const ProfileSubheader = styled.div`
 display: flex;
@@ -116,7 +120,7 @@ const ProfileImage = styled.img`
   height: 550px;
   width: 350px;
   border-radius: 30px;
-  box-shadow: rgba(181, 149, 117, 0.4) -5px 5px, rgba(181, 149, 117, 0.3) -10px 10px, rgba(181, 149, 117, 0.2) -15px 15px, rgba(181, 149, 117, 0.1) -20px 20px, rgba(181, 149, 117, 0.05) -25px 25px;
+  box-shadow: rgba(254,193,27, 0.4) -5px 5px, rgba(254,193,27, 0.3) -10px 10px, rgba(254,193,27, 0.2) -15px 15px, rgba(254,193,27, 0.1) -20px 20px, rgba(254,193,27, 0.05) -25px 25px;
   transition: transform 0.5s ease;
   &:hover {
     transform: scale(1.05);
@@ -124,12 +128,12 @@ const ProfileImage = styled.img`
 `;
 const Button = styled(Link)`
   text-decoration: none;
-  background: #b59575;
-  border: 1px solid #b59575;
+  background: #fec11b;
+  border: 1px solid #fec11b;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
   box-sizing: border-box;
-  color: #ffffff;
+  color: black;
   cursor: pointer;
   display: inline-block;
   font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
@@ -161,26 +165,30 @@ const Button = styled(Link)`
 const ActorMoviesContainer = styled.div`
   margin: 10px 70px;
   padding: 20px;
-  color: white;
+  color: #fec11b;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(181, 149, 117);
-`
+  border: 1px solid #fec11b;
+  background-color: #202125;
+  border-radius: 30px;
+`;
 
 const ActorImagesContainer = styled.div`
   margin: 70px;
   padding: 20px;
-  color: white;
+  color: #fec11b;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(181, 149, 117);
+  border: 1px solid #fec11b;
+  border-radius: 30px;
+  background-color: #202125;
 `;
 
 const ActorImage = styled.img`
   height: 300px;
   width: 200px;
   border-radius: 30px;
-  box-shadow: rgba(181, 149, 117, 1) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  box-shadow: rgba(254,193,27, 1) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 `;
 ;  
  

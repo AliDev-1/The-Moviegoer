@@ -1,5 +1,5 @@
-//All of our TMDB API calls will be made here...
 //We are using Redux Toolkit Query to make our API calls
+//All of our TMDB API calls will be made here...
 //Syntax taken from Redux documentation
 
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -16,7 +16,7 @@ export const tmdbApi = createApi({
     }),
 
     //* Get the list of movies on TMDb for MovieList component. By defualt, we will return a list of popular movies unless a searchQuery or genreId/page is specified.
-    getPopularMovies: builder.query({
+    getMovies: builder.query({
       query: ({ genreId, page, searchQuery }) => {
         //Get movies by search query
         if (searchQuery) {
@@ -51,7 +51,32 @@ export const tmdbApi = createApi({
     getMoviesByActorId: builder.query({
       query: (id, page) => `person/${id}/movie_credits?api_key=${tmdbApiKey}&page=${page}`,
     }),
+
+    //Get popular movies
+    getPopularMovies: builder.query({
+      query: (page) => `movie/popular?page=${page}&api_key=${tmdbApiKey}`,
+    }),
+
+    //Get now playing movies
+    getNowPlayingMovies: builder.query({
+      query: (page) => `movie/now_playing?page=${page}&api_key=${tmdbApiKey}`,
+    }),
+
+    //Get trending movies of the day
+    getTrendingMovies: builder.query({
+      query: () => `trending/movie/day?api_key=${tmdbApiKey}`,
+    }),
+
+    //Get upcoming movies
+    getUpcomingMovies: builder.query({
+      query: (page) => `movie/upcoming?page=${page}&api_key=${tmdbApiKey}`,
+    }),
+
+    //Get top rated movies
+    getTopRatedMovies: builder.query({
+      query: (page) => `movie/top_rated?page=${page}&api_key=${tmdbApiKey}`,
+    }),
   }),
 });
 
-export const { useGetPopularMoviesQuery, useGetMovieGenresQuery, useGetMovieQuery, useGetSimilarMoviesQuery, useGetActorDetailsQuery, useGetMoviesByActorIdQuery } = tmdbApi;
+export const { useGetMoviesQuery, useGetMovieGenresQuery, useGetMovieQuery, useGetSimilarMoviesQuery, useGetActorDetailsQuery, useGetMoviesByActorIdQuery, useGetPopularMoviesQuery, useGetNowPlayingMoviesQuery, useGetTrendingMoviesQuery, useGetUpcomingMoviesQuery, useGetTopRatedMoviesQuery } = tmdbApi;

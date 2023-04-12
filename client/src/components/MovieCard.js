@@ -8,7 +8,7 @@ const MovieCard = ({ movie }) => {
     <>
       <Card url={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="card">
         <div className="card-content">
-          <h2 className="card-title">{movie.original_title}</h2>
+          <h2 className="card-title">{movie.title}</h2>
           <p className="card-body">
             <span className="scroll-text">{movie.overview}</span>
           </p>

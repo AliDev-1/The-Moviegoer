@@ -5,7 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const port = 8888;
 
-const { getWatchlist, getUsers, getReviews, addToWatchlist } = require("./handlers");
+const { getWatchlist, getUsers, getReviews, addToWatchlist, addToFavorites, removeFromWatchlist, getFavorites, removeFromFavorites } = require("./handlers");
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
@@ -32,9 +32,17 @@ express()
 
   .get("/reviews/:userEmail", getReviews) // get a user's reviews
 
+  .get("/favorites/:userEmail", getFavorites) // get a user's favorites
+
   .post("/watchlist/:userEmail", addToWatchlist) // add a movie to a user's watchlist
 
-  .post("/favorites/:userEmail", addToWatchlist) // add a movie to a user's favorites
+  .post("/favorites/:userEmail", addToFavorites) // add a movie to a user's favorites
+
+  .patch("/remove-from-watchlist", removeFromWatchlist) // remove a movie from a user's watchlist
+
+  .patch("/remove-from-favorites", removeFromFavorites) // remove a movie from a user's favorites
+
+
 
   // add new endpoints here ☝️
   // ---------------------------------

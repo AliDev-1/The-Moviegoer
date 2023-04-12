@@ -16,7 +16,7 @@ const Header = () => {
   const activeStyle = {
     fontWeight: "bold",
     textDecoration: "none",
-    color: "#B59575",
+    color: "#FEC11B",
     fontWeight: "bold",
     fontSize: scrollPosition >= 50 ? ".9rem" : "1.4rem",
     padding: "0 10px",
@@ -52,7 +52,7 @@ const Header = () => {
               Home
             </NavLink>
 
-            <NavLink to="/" style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}>
+            <NavLink to="/movies" style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}>
               All Movies
             </NavLink>
             <SearchBar />
@@ -61,12 +61,8 @@ const Header = () => {
           <RightDiv>
             {user && (
               <>
-                <NavLink to="/watchlist" style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}>
-                  Watchlist
-                </NavLink>
-
-                <NavLink to="/favorites" style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}>
-                  Favorites
+                <NavLink to="/profile" style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}>
+                  Profile
                 </NavLink>
               </>
             )}
@@ -88,7 +84,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   background: #202125;
-  border-bottom: 2px solid #b59575;
+  border-bottom: 2px solid #fec11b;
   position: sticky;
   top: 0;
   z-index: 0;

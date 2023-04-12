@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetMovieQuery, useGetSimilarMoviesQuery } from "../services/TMDB";
+import {motion} from "framer-motion";
 import { useAuth0 } from "@auth0/auth0-react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -13,6 +14,8 @@ import genreIcons from "../assets/genres";
 import MovieCard from "./MovieCard";
 import TrailerModal from "./TrailerModal";
 import ReviewCard from "./ReviewCard";
+import Loading from "./Loading";
+import { selectGenre } from "../features/currentGenre";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -21,13 +24,20 @@ const MovieDetails = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [trailerModal, setTrailerModal] = useState(false);
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
+  const [isAddedToFavorites, setIsAddedToFavorites] = useState(false);
+  const [renderPopUp, setRenderPopUp] = useState(false);
 
-  if (isFetching) return <div>Loading...</div>;
-  if (similarIsFetching) return <div>Loading...</div>;
+  const dispatch = useDispatch();
+  const { genreId } = useSelector((state) => state.currentGenre);
+
+  console.log(genreId);
+
+  if (isFetching) return <Loading />;
+  if (similarIsFetching) return <Loading />;
 
   const similarMovies = similarData.results;
 
-  console.log(data.reviews);
+  console.log(data);
 
   const handleWatchlist = () => {
     fetch(`/watchlist/${user.email}`, {
@@ -36,13 +46,17 @@ const MovieDetails = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        movie: { ...data },
+        movie: { id: data.id, title: data.title, overview: data.overview, poster_path: data.poster_path },
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         setIsAddedToWatchlist(true);
         console.log(data);
+        setRenderPopUp(true);
+        setInterval(() => {
+          setRenderPopUp(false);
+        }, 5000);
       })
       .catch((error) => {
         console.log(error);
@@ -56,12 +70,16 @@ const MovieDetails = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        movie: { ...data },
+        movie: { id: data.id, title: data.title, overview: data.overview, poster_path: data.poster_path },
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setRenderPopUp(true);
+        setInterval(() => {
+          setRenderPopUp(false);
+        }, 5000);
       })
       .catch((error) => {
         console.log(error);
@@ -69,7 +87,7 @@ const MovieDetails = () => {
   };
 
   return (
-    <>
+    <Container initial={{ opacity: 0, transition: { duration: 3 } }} animate={{ opacity: 1, transition: { duration: 3 } }} exit={{ opacity: 0, transition: { duration: 3 } }}>
       {trailerModal ? (
         <TrailerModal movieData={data} setTrailerModal={setTrailerModal} />
       ) : (
@@ -87,16 +105,16 @@ const MovieDetails = () => {
                 <TaglineRating>
                   <Rating>
                     <ReactStars count={5} value={data?.vote_average / 2} size={22} color2={"#ffd700"} />
-                    {data?.vote_average}
+                    {data?.vote_average.toFixed(1)}/10
                   </Rating>
                   {data?.runtime} min / {data?.spoken_languages.length > 0 ? data?.spoken_languages[0].name : ""}
                 </TaglineRating>
               </div>
               <p>{data?.overview}</p>
               <GenreLink>
-                {data.genres.map((genre, i) => {
+                {data.genres.map((genre, id) => {
                   return (
-                    <Link key={genre.name} to="/" onClick={() => {}}>
+                    <Link key={genre.name} to="/movies" onClick={() => dispatch(selectGenre(genre.id))}>
                       <GenreLink>
                         <GenreIcon src={genreIcons[genre.name.toLowerCase()]} alt={genre.name} />
                         {genre.name}
@@ -127,12 +145,18 @@ const MovieDetails = () => {
             </MovieInfo>
           </BackdropContainer>
           <ButtonDiv>
-            <Button onClick={handleWatchlist} disabled={isAddedToWatchlist ? true : false}>
-              {isAuthenticated ? "Add to Watchlist" : "Log in to Add to Watchlist"}
-            </Button>
-            <Button>Add to Favorites</Button>
-            <Button>Movie Website</Button>
-            <Button>IMDB Link</Button>
+            {isAuthenticated && (
+              <>
+                <UserButton onClick={handleWatchlist} disabled={!isAuthenticated ? true : false}>
+                  {isAuthenticated ? "Add to Watchlist" : "Log in to Add to Watchlist"}
+                </UserButton>
+                <UserButton onClick={handleFavorites} disabled={!isAuthenticated ? true : false}>
+                  {isAuthenticated ? "Add to Favorites" : "Log in to Add to Favorites"}
+                </UserButton>
+              </>
+            )}
+            <Button to={data.homepage}>Movie Website</Button>
+            <Button to={`https://www.imdb.com/title/${data.imdb_id}`}>IMDB Link</Button>
             <Button
               onClick={() => {
                 setTrailerModal(true);
@@ -140,8 +164,9 @@ const MovieDetails = () => {
             >
               Watch Trailer
             </Button>
+            {renderPopUp && <Popup>Item Added</Popup>}
           </ButtonDiv>
-            <MovieImagesContainer>
+          <MovieImagesContainer>
             <h3>Movie Images</h3>
             <Slider dots={false} infinite={true} slidesToShow={2} slidesToScroll={1} autoplay={true} speed={3000} autoplaySpeed={3000} cssEase={"linear"}>
               {data &&
@@ -154,15 +179,17 @@ const MovieDetails = () => {
                 })}
             </Slider>
           </MovieImagesContainer>
-            <ReviewContainer>
-              <h3>Reviews from TMDB</h3>
+          <ReviewContainer>
+            <h3>Reviews from TMDB</h3>
             <Slider dots={false} centerMode={false} infinite={true} slidesToShow={2} centerPadding={"40px"} autoplay={false} autoplaySpeed={2000}>
               {data &&
                 data.reviews.results.map((review, i) => {
+                  console.log(review);
                   return (
                     <ReviewDiv>
-                      <ReviewCard review={review} />
-                      <Link to={''}></Link>  
+                      <ReviewLink to={review.url}>
+                        <ReviewCard review={review} />
+                      </ReviewLink>
                     </ReviewDiv>
                   );
                 })}
@@ -184,9 +211,13 @@ const MovieDetails = () => {
           </SimilarMoviesContainer>
         </>
       )}
-    </>
+    </Container>
   );
 };
+
+const Container = styled(motion.div)`
+
+`
 
 const BackdropContainer = styled.div`
   background-image: linear-gradient(0deg, rgba(0, 0, 0, 1) 6%, rgba(121, 91, 9, 1) 31%, rgba(0, 212, 255, 0) 100%), url(${(props) => props.url});
@@ -271,13 +302,13 @@ const ButtonDiv = styled.div`
   flex-direction: column;
   gap: 10px;
 `;
-const Button = styled.button`
-  background: #b59575;
-  border: 1px solid #b59575;
+const UserButton = styled.button`
+  background: #fec11b;
+  border: 1px solid #fec11b;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
   box-sizing: border-box;
-  color: #ffffff;
+  color: black;
   cursor: pointer;
   display: inline-block;
   font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
@@ -299,7 +330,44 @@ const Button = styled.button`
   &:active {
     background-color: initial;
     background-position: 0 0;
-    color: #b59575;
+    color: #fec11b;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+`;
+
+const Button = styled(Link)`
+  text-decoration: none;
+  background: #fec11b;
+  border: 1px solid #b59575;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+
+  &:hover,
+  &:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #fec11b;
   }
 
   &:active {
@@ -314,14 +382,16 @@ const ActorLink = styled(Link)`
 
 const SimilarMoviesContainer = styled.div`
   margin: 70px;
-  color: rgba(181, 149, 117);
+  color: #fec11b;
+  border: 1px solid #fec11b;
+  padding: 20px;
 `;
 
 const MovieImagesContainer = styled.div`
   margin: 50px 70px;
   padding: 20px;
-  color: rgba(181, 149, 117);
-  border: 1px solid rgba(181, 149, 117);
+  color: #fec11b;
+  border: 1px solid #fec11b;
 `;
 
 const MovieImage = styled.img`
@@ -333,10 +403,27 @@ const MovieImage = styled.img`
 
 const ReviewContainer = styled.div`
   margin: 50px 70px;
-  border: 1px solid rgba(181, 149, 117);
+  border: 1px solid #fec11b;
   padding: 20px;
-  color: rgba(181, 149, 117);
+  color: #fec11b;
 `;
-const ReviewDiv = styled.div`
-`
+
+const ReviewLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const ReviewDiv = styled.div``;
+
+const Popup = styled.div`
+  margin-top: 10px;
+  border: 1px solid #fec11b;
+  border-radius: 10px;
+  padding: 20px;
+  color: #fec11b;
+  text-decoration: underline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+`;
 export default MovieDetails;

@@ -49,14 +49,15 @@ margin-top: 200px;
 
 const ModalContainer = styled.div`
   color: white; 
-  border: 1px solid ;
+  border: 1px solid #fec11b;
   width: 700px;
   height: 650px;
   border-radius: 12px;
-  box-shadow: rgba(181, 149, 117, 0.4) 0px 5px, rgba(181, 149, 117, 0.3) 0px 10px, rgba(181, 149, 117, 0.2) 0px 15px, rgba(181, 149, 117, 0.1) 0px 20px, rgba(181, 149, 117, 0.05) 0px 25px;
+  box-shadow: rgba(254, 193, 27, 0.4) 0px 5px, rgba(254, 193, 27, 0.3) 0px 10px, rgba(254, 193, 27, 0.2) 0px 15px, rgba(254, 193, 27, 0.1) 0px 20px, rgba(254, 193, 27, 0.05) 0px 25px;
   display: flex;
   flex-direction: column;
   padding: 25px;
+  background-color: #202125;
 `;
 
 const ModalTitle = styled.div`
@@ -71,6 +72,7 @@ const CloseButton = styled.button`
   background-color: transparent;
   border: none;
   font-size: 20px;
+  color: #fec11b;
   cursor: pointer;
 `;
 
@@ -89,12 +91,12 @@ const ModalFooter = styled.div`
 `;
 
 const Button = styled.button`
-  background: #b59575;
+  background: #fec11b;
   border: 1px solid #b59575;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
   box-sizing: border-box;
-  color: #ffffff;
+  color: black;
   cursor: pointer;
   display: inline-block;
   font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
