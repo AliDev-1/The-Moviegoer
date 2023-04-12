@@ -16,7 +16,7 @@ REACT_APP_TMDB_KEY
 REACT_APP_AUTH0_DOMAIN
 REACT_APP_AUTH0_CLIENT_ID
 
-In the client directory (/server)
+In the server directory (/server)
 //From MongoDB
 MONGO_URI
 
