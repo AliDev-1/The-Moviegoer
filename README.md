@@ -18,20 +18,18 @@ REACT_APP_AUTH0_CLIENT_ID
 
 In the client directory (/server)
 //From MongoDB
-MONGO_URI=mongodb+srv://nabeelali:mongo@cluster1.rigkvsf.mongodb.net/moviegoer?retryWrites=true&w=majority
+MONGO_URI
 
 To start the site, install the required dependicies both in the client and server
 
 ```
 cd client
 yarn install
-
 ```
 
 ```
 cd server
 yarn install
-
 ```
 
 To run the application
