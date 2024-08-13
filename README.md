@@ -10,7 +10,8 @@ This project is being actively developped.
 
 ## Features
 
-- Browse and search for movies using TMDB API.
+- Browse and search for movies using TMDB API through search and genres.
+- View extensive movie details with trailers and actor details .
 - Manage a personalized watchlist and favorite movies.
 - Authentication handled via Auth0.
 - Data persistence using MongoDB Atlas.
