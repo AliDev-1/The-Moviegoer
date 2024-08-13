@@ -1,49 +1,68 @@
-# The-Moviegoer
+# The Moviegoer
 
-Final project for CB-WD-23
+![The Moviegoer Logo](/client/src/assets/images/MovieGoerLogo.png) 
 
-A movie databse website built in ReactJS with ReduxToolkit and the TMDB API. For the first iteration,
-the backend is handled by NodeJS while storing our data using the Atlas service by MongoDB.
+## Overview
 
-Required API KEYS
+**The Moviegoer** is a movie database website built as a final project for Concordia University's web development program with ReactJS, using StyledComponents for styling and ReduxToolkit for managing API calls to The Movie Database (TMDB) API. The backend is powered by NodeJS and MongoDB Atlas, allowing users to store their watchlists and favorite movies. 
 
-In the client directory (/client)
+This project is being actively developped.
 
-//From TMDB
-REACT_APP_TMDB_KEY
+## Features
 
-//From Auth0
-REACT_APP_AUTH0_DOMAIN
-REACT_APP_AUTH0_CLIENT_ID
+- Browse and search for movies using TMDB API.
+- Manage a personalized watchlist and favorite movies.
+- Authentication handled via Auth0.
+- Data persistence using MongoDB Atlas.
 
-In the server directory (/server)
-//From MongoDB
-MONGO_URI
+## Project Structure
 
-To start the site, install the required dependicies both in the client and server
+- **Client:** Built with React, ReduxToolkit, and StyledComponents.
+- **Server:** NodeJS backend, connected to MongoDB Atlas.
 
-```
+## Prerequisites
+
+To run the project locally, ensure you have the following:
+
+- Node.js installed
+- Yarn package manager installed
+- TMDB API key
+- Auth0 credentials
+- MongoDB URI
+
+## API Keys and Environment Variables
+
+In the client directory (`/client`), create a `.env` file with the following:
+
+```env
+REACT_APP_TMDB_KEY=your_tmdb_key
+REACT_APP_AUTH0_DOMAIN=your_auth0_domain
+REACT_APP_AUTH0_CLIENT_ID=your_auth0_client_id
+
+In the server directory (`/server`), create a `.env` file with the following:
+
+MONGO_URI=your_mongodb_uri
+
+
+1. Clone the repository 
+
+git clone https://github.com/yourusername/the-moviegoer.git
+cd the-moviegoer
+
+2. Install client dependecies 
 cd client
 yarn install
-```
 
-```
+3. Install server dependecies 
 cd server
 yarn install
-```
 
-To run the application
-
-```
+4. Start the client
 cd client
 yarn start
-```
 
-Start the server
-
-```
+5.Start the server
 cd server
 yarn start
-```
 
-Navigate to http://localhost:3000/ to view the website.
+Access the website at : http://localhost:3000/ 

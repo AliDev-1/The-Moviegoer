@@ -17,7 +17,8 @@ export const tmdbApi = createApi({
 
     //* Get the list of movies on TMDb for MovieList component. By defualt, we will return a list of popular movies unless a searchQuery or genreId/page is specified.
     getMovies: builder.query({
-      query: ({ genreId, page, searchQuery }) => {
+      query: ({ genreId, page=1, searchQuery }) => {
+
         //Get movies by search query
         if (searchQuery) {
           return `search/movie?query=${searchQuery}&page=${page}&api_key=${tmdbApiKey}`;
@@ -49,17 +50,17 @@ export const tmdbApi = createApi({
 
     //Get actor credits by ID
     getMoviesByActorId: builder.query({
-      query: (id, page) => `person/${id}/movie_credits?api_key=${tmdbApiKey}&page=${page}`,
+      query: (id, page=1) => `person/${id}/movie_credits?api_key=${tmdbApiKey}&page=${page}`,
     }),
 
     //Get popular movies
     getPopularMovies: builder.query({
-      query: (page) => `movie/popular?page=${page}&api_key=${tmdbApiKey}`,
+      query: (page=1) => `movie/popular?page=${page}&api_key=${tmdbApiKey}`,
     }),
 
     //Get now playing movies
     getNowPlayingMovies: builder.query({
-      query: (page) => `movie/now_playing?page=${page}&api_key=${tmdbApiKey}`,
+      query: (page=1) => `movie/now_playing?page=${page}&api_key=${tmdbApiKey}`,
     }),
 
     //Get trending movies of the day
@@ -69,12 +70,12 @@ export const tmdbApi = createApi({
 
     //Get upcoming movies
     getUpcomingMovies: builder.query({
-      query: (page) => `movie/upcoming?page=${page}&api_key=${tmdbApiKey}`,
+      query: (page=1) => `movie/upcoming?page=${page}&api_key=${tmdbApiKey}`,
     }),
 
     //Get top rated movies
     getTopRatedMovies: builder.query({
-      query: (page) => `movie/top_rated?page=${page}&api_key=${tmdbApiKey}`,
+      query: (page=1) => `movie/top_rated?page=${page}&api_key=${tmdbApiKey}`,
     }),
   }),
 });
