@@ -1,6 +1,7 @@
 # The Moviegoer
 
 ![The Moviegoer Logo](/client/src/assets/images/MovieGoerLogo.png) 
+![The Moviegoer Screenshot](/client/src/assets/images/Moviegoer-screenshot.png) 
 
 ## Overview
 
